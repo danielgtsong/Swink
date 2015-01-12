@@ -1,0 +1,13 @@
+=Swink!
+
+Swink! is a job search and recruiting platform focused on ease of use and networking for job seekers and recruiters. 
+Technologies Used: AngularJS, Ruby on Rails, Javascript, Postgresql.
+
+API in json for all job postings available at: "swink.herokuapp.com/api" 
+
+
+
+
+
+
+

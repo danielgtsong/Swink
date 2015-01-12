@@ -1,0 +1,88 @@
+@font-face {
+    font-family: 'linux';
+    src: url('custom_font/linlibertine_adrs-webfont.eot');
+    src: url('custom_font/linlibertine_adrs-webfont.eot?#iefix') format('embedded-opentype'),
+         url('custom_font/linlibertine_adrs-webfont.woff2') format('woff2'),
+         url('custom_font/linlibertine_adrs-webfont.woff') format('woff'),
+         url('custom_font/linlibertine_adrs-webfont.ttf') format('truetype'),
+         url('custom_font/linlibertine_adrs-webfont.svg#linux_libertine_dispsmallcaps') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	font-family: linux, inherit;
+	font-size: 150%;
+}
+
+div {
+    border-radius: 5px; 
+    /*background-color: silver;*/
+}
+
+.header {
+    /*background-color: yellow;*/
+    margin-top: 50px;
+}
+
+.right-align {
+	text-align: right;
+}
+
+.left-align {
+	text-align: left;
+}
+
+.divider {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.list-item {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.skills-title {
+	font-size: 17px;
+}
+
+.title {
+	height: 50px;
+	/*background-color: purple;*/
+}
+
+.firm {
+	font-size: 17px;
+}
+
+.position {
+	color: #02ABC3;
+}
+
+#name {
+	font-size: 40px;
+}
+
+.current-position {
+	font-size: 20px;
+	color: #02ABC3;
+}
+
+/* FIRMS */
+#uniguard {
+	height: 150px;
+	/*background-color: purple;*/
+}
+
+#qooco {
+	height: 100px;
+}
+
+#tnt {
+	height: 150px;
+}
+
+#syncis {
+	height: 120px;
+}

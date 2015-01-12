@@ -1,0 +1,735 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Quicksand);
+@import url(http://fonts.googleapis.com/css?family=Quicksand:700);
+
+@mixin blinking{
+  -webkit-animation: blink 3s infinite; /* Safari 4+ */
+  -moz-animation:    blink 3s infinite; /* Fx 5+ */
+  -o-animation:      blink 3s infinite; /* Opera 12+ */
+  animation:         blink 3s infinite;
+}
+@-webkit-keyframes blink {
+  0%   { opacity: 1;}
+  50% { opacity: 0;  }
+  100%{ opacity: 1; }
+}
+@-moz-keyframes blink {
+  0%   { opacity: 1; }
+  50% { opacity: 0; }
+  100%{ opacity: 1; }
+}
+@-o-keyframes blink {
+  0%   { opacity: 1; }
+  50% { opacity: 0; }
+  100%{ opacity: 1; }
+}
+@keyframes blink {
+  0%   { opacity: 1; }
+  50% { opacity: 0; }
+  100%{ opacity: 1; }
+}
+
+@mixin fade{
+  -webkit-animation: fadeIn 1s; /* Safari 4+ */
+  -moz-animation:    fadeIn 1s; /* Fx 5+ */
+  -o-animation:      fadeIn 1s; /* Opera 12+ */
+  animation:         fadeIn 1s;
+}
+@-webkit-keyframes fadeIn {
+  0%   { opacity: 0;}
+  100%{ opacity: 1; }
+}
+@-moz-keyframes fadeIn {
+  0%   { opacity: 0; }
+  100%{ opacity: 1; }
+}
+@-o-keyframes fadeIn {
+  0%   { opacity: 0; }
+  100%{ opacity: 1; }
+}
+@keyframes fadeIn {
+  0%   { opacity: 0; }
+  100%{ opacity: 1; }
+}
+
+@mixin slider{
+  webkit-animation: slide .3s;
+  -moz-animation: slide .3s;   
+  -o-animation: slide .3s;     
+  animation: slide .3s;   
+}
+@-webkit-keyframes slide {
+    0%{left:0;}
+    100% { left: -1500px;}
+}
+@-moz-keyframes slide{
+    0%{left:0;}
+    100% { left: -1500px;}
+}
+@-o-keyframes slide{
+    0%{left:0;}
+    100% { left: -1500px;}
+}
+@keyframes slide {
+    0%{left:0;}
+    100% { left: -1500px;  }
+}
+
+nav {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* recruiter */
+body.recruiters-body {
+  font-family: 'Quicksand', sans-serif; 
+  background: asset-url('cover.jpg') no-repeat bottom center fixed transparent;
+  background-size: cover;
+  @include fade;
+}
+div#postingScreen {
+  background-color: rgba(255, 255, 255, 1);
+}
+div#notificationsContainer,
+div.newpostScreen, #postingScreen {
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(150,150,150,1);
+  border-radius: 10px;
+}
+
+/* applicant */
+body.applicants-body {
+  background: asset-url('applicant.jpg') no-repeat bottom center fixed transparent;
+  background-size: cover;
+  background-position: 30% -221%;
+  font-family: 'Quicksand', sans-serif;
+  @include fade;
+}
+div.container,
+div.form-container,
+div.profilePreview {
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(150,150,150,1);
+  border-radius: 10px;;
+}
+
+/*all pages*/
+.bold{
+  font-weight: 700;
+}
+.profileSize{
+  font-size: 1.2em;
+}
+.center{
+  text-align: center;
+}
+.selected{
+  color:red;
+}
+ul > li.selected
+{
+  color:red;
+  border-bottom:1px solid red;
+}
+.button{
+  -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   cursor: pointer;
+}
+a{
+  text-decoration: none;
+}
+a:visited{
+  color: black;
+}
+.inline-button{
+  display:inline-block;
+  padding:10px 20px;
+  margin:10px;
+  border:1px solid black;
+  border-radius: 2px;
+}
+.inline-button.scrolly.selected{
+  border:1px solid red;
+}
+.tag-scroll-container > .inline-button.selected{
+  border:1px solid red;
+}
+.like{
+  height:20px;
+}
+.dislike{
+  height:20px;
+}
+#keepdark{
+  color:black;
+}
+#keepdark:hover{
+  color:red;
+}
+
+
+
+/*Login Home*/
+.login {
+  background: asset-url("recruiter.jpg") no-repeat bottom center fixed transparent;
+  background-size: cover;
+  background-position: 30% -50%;
+  font-family: 'Quicksand', sans-serif;
+  @include fade;
+}
+#no-border{
+  border:none;
+  max-width: 450px;
+  margin-top: 100px;
+
+  height:400px;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(150,150,150,1);
+  border-radius: 10px;;
+}
+.btn-default{
+  border:none;
+  background-color: silver;
+}
+
+#title-login {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 50px;
+  text-align: center;
+  display: block;
+  margin-bottom: 12px;
+
+}
+#login_button,
+#sign_up_button,
+#show-sign-up,
+#show-login {
+  font-family: 'Quicksand', sans-serif;
+  display: block;
+  margin: 0 auto;
+  width: 175px;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1.2em;
+}
+#signup-form{
+  display: none;
+  padding: 30px 0 50px;
+}
+#login-form{
+  padding: 40px 0;
+}
+/*hide extra padding*/
+@media (max-width: 767px){
+label.col-sm-1.control-label.sr-only {
+    display: none; 
+  }
+}
+#show-sign-up, #show-login{
+  background-color: rgba(103,141,138,1);
+}
+#show-sign-up:hover, #show-login:hover{
+  background-color: rgba(103,141,138,.8);
+  color:white;
+}
+#login_button:hover, #sign_up_button:hover{
+  color:white;
+}
+.form-control{
+  height:initial;
+  padding:10px;
+  font-size: 1.2em;
+  border: 1px solid rgba(150,150,150,1);
+}
+#login_div{
+  margin-top: -10px;
+}
+
+
+
+
+/*Recruiter Home*/
+#recruiter-nav{
+  text-align: center;
+  display:block;
+}
+.inline{
+  color:black;
+  display: inline-block;
+  margin: 1em 1em;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+/*nav bar*/
+.navbar{
+  @include fade;
+}
+.inline:hover, #logout:hover{  
+  text-decoration: none;
+  color:red;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  background-color: white;
+} 
+button.navbar-toggle.collapsed {
+    background-color: gray;
+}
+span.icon-bar {
+    background: white;
+}
+button.navbar-toggle {
+    background: gray;
+}
+.navbar-header {
+    background-color: gray;
+}
+li.button {
+    border-bottom: 1px solid black;
+}
+.navbar-nav {
+  float: none;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+@media (min-width: 768px){
+  .navbar-nav > li {
+    float:none;
+    display:inline;
+  }
+  #bs-example-navbar-collapse-1 {
+    margin-top: 20px;
+  }
+
+}
+.lineheight{
+  line-height: 1.1;
+}
+.nav > li > a{
+  display:inline;
+  padding:10px 0;
+  &:hover{
+    border-bottom: 1px solid black;
+    color:red;
+    padding-bottom:0;
+  }
+}
+
+/*create postings*/
+.newpostScreen{
+  @include fade;
+  text-align: center;
+  margin:40px auto 0 auto;
+  max-width: 600px;
+  height:580px;
+}
+.newpostInner{
+  text-align: left;
+  padding: 0 50px;
+}
+#inputTitle{
+    padding:15px;
+    font-size:1.5em;
+    width: 100%;
+    margin:0 auto;
+    border:1px solid black;
+}
+#inputDesc{
+  width:100%;
+  font-size:1.2em;
+  height:200px;
+  padding:15px;
+  border:1px solid black;
+
+}
+#submitPost{
+  padding: 7px 50px;
+  font-size: 1.5em;
+  border-radius: 2px;
+  margin-bottom: 7px;
+  position: relative;
+  box-shadow: 0 0 .5px black;
+  background-color: rgba(103,141,138,1);
+}
+#submitPost:hover, #resetPost:hover{
+  color:white;
+}
+#resetPost{
+  font-size: 1.5em;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 0 0 .5px black;
+  padding: 7px 59px;
+ 
+  background-color: silver;
+}
+.postdown{
+  height:50px;
+  position: relative;
+  left: 67px;
+  top: -12px;
+  margin-top: 12px;
+  margin-bottom: -24px;
+}
+.tag-scroll-container{
+  max-width: 200px;
+  height:140px;
+  overflow: scroll;
+  margin-top: 10px;
+}
+
+
+/*view postings*/
+#postingScreen{
+  @include fade;
+  max-width: 600px;
+  margin:40px auto 0 auto;
+  border:1px solid black;
+}
+#postingsContainer{
+  padding:0 4em;
+}
+#myPostingsTitle{
+}
+#allPostings{
+  height:480px;
+  border-top: solid black 1px;
+  overflow: scroll;
+}
+.likestat, .dislikestat{
+  display: inline-block;
+  font-size: 1.5em;
+}
+img.like{
+  vertical-align: 0.1px;
+}
+.likedislike{
+  margin-top: -9px;
+
+}
+.eachpost{
+  margin-bottom: 40px;
+}
+.hightlightgreen{
+  color:green;
+  font-size: 3em;
+}
+.hightlightred{
+  color:red;
+}
+.up{
+  margin-top: -10px;
+}
+
+
+
+/*search*/
+#searchScreen{
+  @include fade;
+  max-width: 800px;
+  margin:0 auto;
+  /*border:1px solid black;*/
+}
+#searchContainer{
+  padding:0 4em;
+}
+@media (min-width: 992px)
+{
+  .col-md-4 {
+      margin-top: 30px;
+  }
+}
+.searchButtons{
+  display:inline-block;
+  text-align: center;
+  margin:10px 0;
+  padding: 10px 11px 10px 11px;
+  font-size: 1.2em;
+  width: 180px;
+  border-radius: 2px;
+  background-color: silver;
+}
+
+.inline-button.scrolly{
+  margin-left: 0;
+  width:180px;
+  text-align: center;
+  font-size: 1.2em;
+}
+.scrolly:hover{
+  color:red;
+}
+.tags-container{
+  width:220px;
+  height:359px;
+  overflow-y: scroll;
+  padding-left: 21px;
+  padding-top: 10px;
+  margin-left: -21px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(150,150,150,1);
+  border-radius: 10px;;
+}
+#searchResults{
+  height: 373px;
+  width: 450px;
+  margin-left: -12px;
+}
+.search-results{
+  height: 496px;
+  margin-top: 35px;
+  margin-bottom: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(150,150,150,1);
+  border-radius: 10px;
+}
+#search{
+  background-color: rgba(103,141,138,1);
+  box-shadow: 0 0 .5px black;
+}
+#reset{
+  box-shadow: 0 0 .5px black;
+  display:block;
+}
+#search:hover, #reset:hover{
+  color:white;
+}
+#placeholder-search, #searchheader{
+  margin-top: 40px;
+}
+#searchheader{
+  margin-left: 9px;
+}
+#placeholder-search{
+  font-size: 22px;
+  text-align: center;
+}
+.applicant{
+  @include fade;
+  margin: -23px auto 0;
+  max-width: 80%;
+  height:300px;
+  padding: 30px;
+  overflow: scroll;
+  z-index: 100;
+}
+.pagenum{
+  text-align: center;
+  position:relative;
+  /*top:-250px;*/
+}
+.left, .right, .down{
+  position:relative;
+  height:50px;
+}
+.left{
+  left: 5px;
+}
+.right{
+  left: 395px;
+}
+.left:hover, .right:hover{
+  @include blinking;
+}
+.down{
+  position: relative;
+  left: 67px;
+  top: 2px;
+}
+.carouselNavSearch{
+  top: 140px;
+  position: relative;
+}
+#noResults{
+  text-align: center;
+  font-size: 18px;
+}
+
+
+/*notifications*/
+#nDiv{
+  @include fade;
+  max-width: 600px;
+  height: 540px;
+  margin: 50px auto 0 auto;
+  /*border:1px solid black;*/
+}
+#notificationsContainer{
+  padding:0 4em;
+  height: 530px;
+}
+#notTitle{
+  text-align: center;
+}
+#notifications{
+  height: 400px;
+  /*border: 1px solid black;*/
+}
+#counter{
+  font-weight: 700;
+  color:red;
+}
+.x-not{
+  height:40px;
+  left:-23px;
+  top: -36px;
+}
+.carouselNav{
+  position:relative;
+  top:125px;
+}
+.rightN{
+  left:457px;
+}
+.leftN{
+  left: -23px;
+}
+.leftN,.rightN{
+  height:50px;
+}
+.x-not, .leftN, .rightN{
+  position:relative;
+}
+.x-not:hover, .leftN:hover, .rightN:hover{
+  @include blinking;
+}
+.inlineB{
+  display:inline-block;
+}
+.carouselProfile{
+  max-width: 350px;
+  margin: -50px auto 0;
+  z-index:100;
+}
+.seeprofile{
+  text-align: center;
+  margin-top: -60px;
+  margin-bottom: 91px;
+  text-decoration: underline;
+}
+.likedat{
+  @include fade;
+  text-align: center;
+  margin-top:18px;
+  padding-top: 60px;
+}
+.profileInfo{
+  @include fade;
+  overflow: scroll;
+  height:260px;
+}
+.pagenumN{
+  text-align: center;
+  position: relative;
+  top: -100px;
+  margin-bottom: -20px;
+}
+
+/*Applicant Home*/
+.profile-container{
+  max-width: 1000px;
+  margin: 0 auto;
+  @include fade;
+}
+.form-container{
+  text-align: center;
+  max-width: 400px;
+}
+.profilePreview {
+    margin-bottom: -180px;
+    margin-top: 20px;
+    padding: 0 100px 150px 100px;
+    border:1px solid black;
+}
+.all-tags-container{
+  height:200px;
+  overflow: scroll;
+  margin-left: 12px;
+}
+#downarrow{
+  height:50px;
+  margin: -40px 0 -30px;
+}
+#linkinput{
+  height: 150px;
+  width: 374px;
+  border:1px solid black;
+}
+#userProfile{
+  height:250px;
+  overflow: scroll;
+  margin-top: 80px;
+}
+#previewtitle{
+  text-align: center;
+}
+.hoverButton{
+  color:white;
+}
+
+/*Feed and Liked*/
+.feedcontainer{
+  /*padding:0 200px;*/
+  height:500px;
+  overflow: scroll;
+  @include fade;
+}
+@media (min-width: 1200px){
+  .container {
+      width: 800px;
+  }
+}
+#feedTitle, #likedTitle{
+  border-bottom: 1px solid black;
+  
+}
+.inlineB.likebutton{
+  vertical-align: -5.9px;
+}
+.singlejob{
+  margin: 0 0 70px;
+
+}
+.jobTitle{
+  margin-bottom: -3px;
+}
+.dislikePosition{
+  vertical-align: -13px;
+}
+.feedlikedislike{
+  margin-bottom: -22px;
+}
+.positionR{
+  position: relative;
+}
+.slideOffScreen{
+  @include slider;
+}
+
+
+
+
+

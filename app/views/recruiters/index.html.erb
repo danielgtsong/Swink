@@ -1,0 +1,159 @@
+<!-- hide show on click -->
+<div ng-if="newPosting" class="newpostScreen">
+	<div class="newpostInner">
+	<!-- post job -->
+		<form ng-submit="makeNewPosting(title, description, postingTagArray)">
+			<h2>Job Title</h2>
+			<input placeholder="Enter job title" type="text" id="inputTitle" ng-model="title" name="text" />
+			<h2>Description</h2>
+			<textarea  placeholder="Enter job description"  type="text" id="inputDesc" ng-model="description" name="text" /></textarea>
+
+			<div class="tag-scroll-container">
+				<input id="submitPost" class="btn" type="submit" id="submit" value="Submit" />
+				<div id="resetPost" class="btn" ng-click="reset()"/>Reset</div>
+				<%=image_tag "down.svg", :class=>"postdown"%>
+
+				<!-- tags for job postings -->
+				<div class="inline-button scrolly button" ng-class="{selected: !checkPostingArray(tag.name)}" ng-repeat="tag in tags" ng-click="postingAddTag(tag.name, checkPostingArray(tag.name))" >
+					<!-- each tag item/button -->
+					<div class="button"
+						ng-class="{selected: !checkPostingArray(tag.name)}">
+						{{tag.name}}
+					</div>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+</div>
+
+<!-- Recruiter's Postings -->
+<div ng-if="showPosting" id="postingScreen">
+	<div id="postingsContainer">
+		<h2 id="myPostingsTitle">My Postings:</h2>
+		<h5 class="totals">Totals: Like {{lstat}} Dislike {{dstat}}</h5>
+		<div id="allPostings">
+			<h4 ng-if="postings.length==0">Start Posting Jobs!</h4>
+			<div ng-repeat="posting in postings">
+				<div class="eachpost">	
+				<h3>{{posting.title}}</h3>
+				<p class="up">{{posting.description}}</p>
+				<div class="likedislike">
+					<div class="likestat"><%=image_tag 'like.svg', :class=>"like"%><span ng-bind="posting.like"></span></div>
+					<div class="dislikestat"><%=image_tag 'dislike.svg', :class=>"dislike"%><span  ng-bind="posting.dislike"></span></div>
+					<div>{{posting.created_at}}</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Search for Applicants -->
+<!-- repeat tags -->
+<div ng-if="searchDiv" id="searchScreen">
+	<div id="searchContainer">
+
+		<div class="col-md-4">
+			<!-- search button-->
+			<div class="btn searchButtons" id="search" ng-click="search(tagArray)">Search</div>
+
+			<div class="btn searchButtons" id="reset" ng-click="reset()">Reset</div>
+			<div class="tags-container">
+				<div ng-if="searchDiv"><%=image_tag "down.svg", :class=>"down"%></div>
+				<div class="inline-button scrolly button" ng-class="{selected: !checkArray(tag.name)}" ng-repeat="tag in tags" ng-click="addTag(tag.name, checkArray(tag.name))">
+					<!-- each tag item/button -->
+					<div class="button"  
+						ng-class="{selected: !checkArray(tag.name)}">
+						{{tag.name}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<div class="col-md-8 search-results">
+			<!-- search results -->
+			<h2 ng-if="applicants==null" id="placeholder-search">-Start search by selecting tags-</h2>
+
+			<h2 ng-if="applicants!=null" id="searchheader">Matching Applicants Results</h2>
+
+			<!-- carousel -->
+			<div id="searchResults">
+			<!-- display if zero results -->
+				<div ng-if="applicants.length==0" id="noResults">-No Results-</div>
+
+				<div ng-repeat="applicant in applicants" >
+					<div ng-init="carousel[$index]=false; carousel[0]=true">
+
+						<div ng-if="carousel[$index]">
+							<div class="pagenum">{{$index+1}} of {{applicants.length}}</div>
+							<div class="carouselNavSearch">
+								<div class="inlineB" ng-click="backwards($index)"><%=image_tag "left.svg", :class=> "left button"%></div>
+								<div class="inlineB" ng-click="forwards($index)"><%=image_tag "right.svg", :class => "right button"%></div>
+							</div>
+
+							<div class="applicant">
+								<div class="profileSize"><span class="bold">Name: </span> {{searchnames[$index]}}</div>
+								<div class="profileSize"><span class="bold">Email: </span>{{searchemails[$index]}}</div>
+								<div class="profileSize"><span class="bold">Links: </span>
+									<div ng-repeat="link in searchlinks[$index]">{{link}}</div>
+								</div>
+								<div class="profileSize"><span class="bold">Tags:</span>
+									<div ng-repeat="tag in searchtaglists[$index]">{{tag}}
+									</div>
+								</div>
+							</div>
+							
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Notificiations -->
+<div ng-if="showNotifications" id="nDiv">
+	<div id="notificationsContainer">
+		<h2 id="notTitle">Notifications</h2>
+		<div id="notifications">
+			<h4 class="center" ng-if="counter==0 || !counter">-No Notifications-</h4>
+			<div ng-repeat="n in notifications">
+				<div ng-init="ncarousel[$index]=false; ncarousel[0]=true">
+					<div ng-if="ncarousel[$index]">
+
+						<div ng-click="removeNotification(n.id, showP[n.id])" class="button inlineB"><%=image_tag "x.svg",:class=>"x-not"%></div>
+						<div class="carouselNav">
+							<div class="button inlineB" ng-click="nbackwards($index)"><%=image_tag "left.svg", :class=>"leftN"%></div>
+							<div class="button inlineB" ng-click="nforwards($index)"><%=image_tag "right.svg",:class=>"rightN"%></div>
+						</div>
+						<div class="pagenumN">{{$index+1}} of {{notifications.length}}</div>
+						<div ng-init="showP[n.id]=false" ng-click=" showP[n.id]=!showP[n.id]" class="button seeprofile"><span ng-show="!showP[n.id]">Show</span><span ng-show="showP[n.id]">Hide</span>Profile</div>
+
+							
+						<div class="carouselProfile">
+							<div ng-if="!showP[n.id]" class="likedat profileSize">{{names[$index]}} liked your post at {{n["created_at"]}}</div>
+						
+							<div ng-if="showP[n.id]" class="profileInfo">
+								<div class="profileSize"><span class="bold">Name: </span>{{names[$index]}}</div>
+								<div class="profileSize"><span class="bold">Email: </span>{{emails[$index]}}</div>
+
+								<div class="profileSize"><span class="bold">Links: </span>
+									<div class="" ng-repeat="link in linksA[$index]">{{link}}</div>
+								</div>
+								<div class="profileSize"><span class="bold">Tags: </span>
+									<div ng-repeat="tag in taglistsA[$index]">{{tag}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

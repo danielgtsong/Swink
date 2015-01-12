@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html ng-app="RecruiterApp">
+<head>
+  <title>Swink</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.4/angular.min.js"></script>
+  <%= csrf_meta_tags %>
+  
+</head>
+
+<body class="recruiters-body" ng-controller="recruiterCtrl">
+
+<nav class="navbar" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="inline button" ng-click="toggle(newPosting, 'n')"
+ng-init="newPosting=false" ng-class="{selected: newPosting}">Create Posting</li>
+         <li class="inline button" ng-init="searchDiv=false" ng-click="toggle(searchDiv, 's')" ng-class="{selected: searchDiv}">Search Applicants</li>
+         <li class="inline button"  ng-init="showPosting=true" ng-click="toggle(showPosting, 'p')", ng-class="{selected: showPosting}">My Postings</li>
+         <li class="inline button" ng-init="showNotifications=false" ng-click="toggle(showNotifications, 'not'); getPostings()" ng-class="{selected: showNotifications}">Notifications<span ng-if="counter" id="counter">({{counter}})</span></li>
+         <li class="inline button lineheight"><a href="/signout"><%= link_to "Log Out", sign_out_path, method: :delete, :id=>"keepdark"%></a></li>
+      </ul>
+      </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<%= yield %>
+
+<script>
+	angular.module('RecruiterApp', [])
+	.config(["$httpProvider", function($httpProvider){
+	  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+	}])
+	.controller('recruiterCtrl', ['$scope', '$http', function($scope, $http) {
+		console.log("Angular Ready");
+
+		// initialize empty search array
+		$scope.tagArray = [];
+
+		// add or remove tags for search
+		$scope.addTag = function(tag, addRemove){
+			// add tag from array
+			if (addRemove == true){ 
+				$scope.tagArray.push(tag);
+			}
+			// remove tag from array
+			else
+			{
+				var index = $scope.tagArray.indexOf(tag);
+				$scope.tagArray.splice(index, 1);
+			}
+			console.log($scope.tagArray);			
+		}
+
+		// reset selected
+		$scope.reset = function(){
+			$scope.tagArray=[];
+			$scope.postingTagArray =[];
+		}
+
+		// to control toggle of tag buttons
+		$scope.checkArray = function(tagName){
+			// tag in array
+			if ($scope.tagArray.indexOf(tagName) != -1){
+				return false;
+			}
+			// tag not in array
+			else{
+				return true;
+			}
+		}
+
+		// initialize empty postingTagArray
+		$scope.postingTagArray =[];
+
+		// Adding tag to array of postingtags
+		$scope.postingAddTag = function(tag, addRemove){
+			// add tag from array
+			if (addRemove == true){ 
+				$scope.postingTagArray.push(tag);
+			}
+			// remove tag from array
+			else
+			{
+				var index = $scope.postingTagArray.indexOf(tag);
+				$scope.postingTagArray.splice(index, 1);
+			}
+			console.log($scope.postingTagArray);
+		}
+
+		// To control toggle of posting array
+		$scope.checkPostingArray = function(tagName){
+			// tag in posting array
+			if ($scope.postingTagArray.indexOf(tagName) != -1){
+				return false;
+			}
+			// tag not in posting array
+			else{
+				return true;
+			}
+		}
+
+		// Make new posting
+		$scope.makeNewPosting = function(title, description, postingTagArray){
+			console.log("making");
+
+			// exit if no tags are inserted
+			if (postingTagArray.length == 0){
+				return;
+			}
+			else{
+				$http.post('/newposting', {title: title, description: description, postingTagArray: postingTagArray}).success(function(data){
+						$scope.newPosting = !$scope.newPosting;
+						$scope.getPostings();
+						$scope.toggle(false,"p");
+						$scope.reset();
+				});
+			}
+		}
+
+		// Runs when loaded (fetch new page data)
+		// Load all posted jobs by this recruiter
+		// Gets total likes and dislikes
+		// gets all tags in tags table
+		// gets notifications and all associated 
+		// user data
+		// gets all of recruiters postings
+		$scope.getPostings = function(){
+			$http.get('/recruiter.json').success(function(data){
+				$scope.postings = data.postings;
+				$scope.lstat = 0;
+				$scope.dstat = 0;
+				if (data.postings.length>0){
+					for (var i = 0; i < data.postings.length; i++){
+						$scope.lstat += data.postings[i].like;
+						$scope.dstat += data.postings[i].dislike; 
+					}
+				}
+				$scope.tags = data.tags;
+				$scope.notifications = data.notifications;
+				if($scope.notifications!=null){
+					$scope.counter=$scope.notifications.length;
+				}
+				// related data for notifications
+				$scope.names = data.names;
+				$scope.emails = data.emails;
+				$scope.profilesA = data.profiles;
+				$scope.taglistsA = data.taglists;
+				$scope.linksA = data.linkarray;
+			});
+		}
+
+
+		// Get all postings made by recruiter
+		$scope.getPostings();
+
+		// Search for applicants
+		$scope.search = function(tags){
+			console.log(tags.length);
+			console.log("searching");
+			// Skip search if no tags selected
+			if(tags.length == 0){
+				return;
+			}
+			else
+			{
+				$http.post('/searchprofile', {tags: tags}).success(function(data){
+					// get applicant's data
+					$scope.applicants = data.profiles;
+					$scope.searchnames = data.names;
+					$scope.searchemails = data.emails;
+					$scope.searchlinks = data.links;
+					$scope.searchtaglists = data.tag_lists;
+				});
+			}
+		}
+
+		// Notifications
+		$scope.removeNotification = function(id){
+			console.log("see profile");
+			// update after user closes profile
+			$http.get('/notification/'+id).success(function(data){
+					$scope.getPostings();
+			});
+		}
+
+		// for toggling through menu (on/off)
+		$scope.toggle = function(x, y){
+			if(x==false){
+				if(y=="n")
+				{	
+					$scope.newPosting=true;
+					$scope.showPosting=false;
+					$scope.searchDiv=false;
+					$scope.showNotifications=false;
+				}
+				else if(y=="p")
+				{
+					$scope.newPosting=false;
+					$scope.showPosting=true;
+					$scope.searchDiv=false;
+					$scope.showNotifications=false;
+				}
+				else if(y=="s")
+				{
+					$scope.newPosting=false;
+					$scope.showPosting=false;
+					$scope.searchDiv=true;
+					$scope.showNotifications=false;
+				}
+				else if(y=="not")
+				{
+					$scope.newPosting=false;
+					$scope.showPosting=false;
+					$scope.searchDiv=false;
+					$scope.showNotifications=true;
+				}
+			}
+		}
+
+		$scope.carousel=[];
+		$scope.forwards = function(x){
+			console.log("forwards from");
+			console.log(x);
+			// hides all
+			for(person in $scope.carousel){
+				$scope.carousel[person]=false;
+			}
+			// shows next or loops back to first
+			if (x < $scope.applicants.length-1){
+				$scope.carousel[x+1]=true;
+			}
+			else{
+				$scope.carousel[0]=true;
+			}
+		}
+
+		$scope.backwards = function(x){
+			console.log("backwards from");
+			console.log(x);
+			// hide all
+			for(person in $scope.carousel){
+				$scope.carousel[person]=false;
+			}
+			// shows previous or loops back to first
+			if (x != 0){
+				$scope.carousel[x-1]=true;
+			}
+			else{
+				$scope.carousel[$scope.applicants.length-1]=true;
+			}
+		}
+
+		$scope.ncarousel=[];
+		$scope.nforwards = function(x){
+			console.log("forwards from");
+			console.log(x);
+			// hides all
+			for(n in $scope.ncarousel){
+				$scope.ncarousel[n]=false;
+			}
+			// shows next or loops back to first
+			if (x < $scope.notifications.length-1){
+				$scope.ncarousel[x+1]=true;
+			}
+			else{
+				$scope.ncarousel[0]=true;
+			}
+		}
+
+		$scope.nbackwards = function(x){
+			console.log("backwards from");
+			console.log(x);
+			// hide all
+			for(n in $scope.ncarousel){
+				$scope.ncarousel[n]=false;
+			}
+			// shows previous or loops back to first
+			if (x != 0){
+				$scope.ncarousel[x-1]=true;
+			}
+			else{
+				$scope.ncarousel[$scope.notifications.length-1]=true;
+			}
+		}
+	 }]);
+
+	
+</script>
+</body>
+</html>

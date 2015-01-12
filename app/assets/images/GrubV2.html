@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+  <title>GrubV2</title>
+  <link href="http://localhost:3000/assets/application.css?body=1" media="all" rel="stylesheet">
+  <script src="./GrubV2_files/jquery.js"></script>
+<script src="./GrubV2_files/jquery_ujs.js"></script>
+<script src="./GrubV2_files/angular.js"></script>
+<script src="./GrubV2_files/angular-animate.js"></script>
+<script src="./GrubV2_files/angular-ui-router.js"></script>
+<script src="./GrubV2_files/angular-rails-templates.js"></script>
+<script src="./GrubV2_files/app.js"></script>
+<script src="./GrubV2_files/LoginCtrl.js"></script>
+<script src="./GrubV2_files/home.js"></script>
+<script src="./GrubV2_files/application.js"></script>
+  <meta content="authenticity_token" name="csrf-param">
+<meta content="aSPLXoGJ+fWFWngU5HMgZabsanoHUjp/OWVUoLw72rs=" name="csrf-token">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body ng-app="Grub" class="ng-scope">
+
+<!-- uiView:  --><div ui-view="" class="ng-scope"><div class="container-fluid ng-scope" ng-controller="LoginCtrl as login">
+	<div class="row">
+		<div class="col-md-offset-1 col-md-3">
+			<div id="login">
+				<h3 class="font sign-in">- Sign In -</h3>
+				<form ng-submit="login.submit()" name="loginForm" id="loginForm" class="ng-pristine ng-invalid ng-invalid-required ng-valid-minlength">
+					<div>
+					<label>username</label>
+					<input type="text" name="username" ng-model="login.user.username" class="username ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-minlength" required="" ng-minlength="4">
+					</div>
+					<div>
+					<label>password</label>
+					<input type="password" name="password" class="password ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="login.user.password" required="">
+					</div>
+					<input type="submit" value="Sign In" class="btn btn-default" id="submit-btn" ng-disabled="loginForm.$invalid" disabled="disabled">
+				</form>
+
+				<h3 class="font sign-in">- Sign Up -</h3>
+				<form ng-submit="signUp.submit()" name="signUpForm" id="signUpForm" class="ng-pristine ng-invalid ng-invalid-required ng-valid-minlength">
+					<div>
+					<label>username</label>
+					<input type="text" name="username" ng-model="signup.user.username" class="username ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-minlength" required="" ng-minlength="4">
+					</div>
+					<div>
+					<label>password</label>
+					<input type="password" name="password" class="password ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="signup.user.password" required="">
+					</div>
+					<input type="submit" value="Sign Up" class="btn btn-default" id="submit-btn" ng-disabled="signUpForm.$invalid" disabled="disabled">
+				</form>
+				
+			</div>
+		</div>
+		<div class=" col-md-offset-2 col-md-4">
+			<div id="title">GRUB</div>
+			<p>
+				Viderer vivendo interpretaris ei eam, agam fabellas an ius. Tollit placerat tacimates duo at, et eam veritus blandit sententiae, nam tempor libris percipit ea. Atqui quidam qui eu, sit et elit causae eloquentiam, nec te harum veniam vulputate. Vel eu constituam quaerendum, pro ei dicam feugait, per et singulis contentiones. Ea zril pericula mei, mentitum principes scribentur ius ei. Error deseruisse sed eu.
+				<br><br>
+				Vis justo dolor labore in, agam meis referrentur ex vix. Cu qui aperiri consequat efficiendi, epicurei tincidunt ad mel. Mollis vituperata argumentum an cum. Nam possim persius ad, cu pro congue delicatissimi, in qui blandit quaerendum.
+				<br><br>
+				Ex cum mutat error oportere. An vel prima atomorum. Molestie delicata ex eos, qui perfecto principes consectetuer ea. Facer scriptorem ius in, ei congue intellegebat quo, ne sed suscipiantur voluptatibus.
+				<br><br>
+				Quidam tamquam placerat vix ad, maiorum indoctum pri ea. Est ut labore sapientem, his ad viderer luptatum. An diam agam volutpat mei, iudico dolore maluisset usu ea, vis et fabulas adipiscing concludaturque. No libris meliore mentitum vel, qui te impetus expetendis, eum iisque invidunt in. In eum aliquid mediocritatem, has at dolor eligendi qualisque. Impedit vituperatoribus no mel.
+			</p>
+		</div>
+	</div>
+</div>
+
+</div>
+
+
+
+</body></html>
